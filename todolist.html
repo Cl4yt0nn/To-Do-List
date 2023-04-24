@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+        font-family:'Raleway',sans-serif;
+    }
+    header {
+        background:rgb(32, 32, 32);
+        width:calc(100%+8px);
+        height:15vh;
+        margin:-8px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        box-shadow:0px 0px 50px black;
+    }
+    #itemName {
+        border:0px solid transparent;
+        width:50%;
+        height:10vh;
+        font-size:6vh;
+        text-align:center;
+        color:black;
+    }
+    #container {
+        font-size:5vh;
+        margin-top:3.5vh;
+        width:65%;
+        margin-left:17.5%;
+    }
+    #container > input {
+        width:2vh;
+        height:2vh;
+    }
+    @media (max-width:670px) {
+        #itemName {
+            width:90%;
+        }
+        #container {
+            width:80% !important;
+            margin-left:10% !important;
+            font-size:4vh;
+        }
+    }
+    @media (max-width:380px) {
+        #itemName {
+            font-size:4vh;
+        }
+        #container {
+            width:88% !important;
+            margin-left:6% !important;
+            font-size:3vh;
+        }
+    }
+</style>
+<body>
+    <header>
+        <input type="text" id="itemName" placeholder="Enter task here..."><br><br>
+    </header>
+
+    <div id="container">
+        <!--<input type="checkbox" id="i1" class="checker">
+        <label for="i1" class="label">Item 1</label><br class="line">-->
+    </div>
+</body>
+<script>
+    addEventListener('keydown',(event)=>{
+        if (event.key == "Enter") {
+            createNew();
+        }
+    });
+
+    let selector = 0;
+    let listItems = document.getElementsByClassName("label");
+    let j = "";
+
+    function createNew() {
+        if (document.getElementById("itemName").value !== "") {
+            var newElement = document.createElement("input");
+            document.getElementById("container").appendChild(newElement);
+            newElement.id = "i" + selector;
+            newElement.type = "checkbox";
+            newElement.className = "checker";
+            var newLabel = document.createElement("label");
+            document.getElementById("container").appendChild(newLabel);
+            newLabel.for = "i" + selector;
+            newLabel.className = "label";
+            newLabel.innerHTML = document.getElementById("itemName").value;
+            newLabel.id = "l" + selector;
+            var lineSpace = document.createElement("br");
+            document.getElementById("container").appendChild(lineSpace);
+            lineSpace.className = "line";
+            listItems = document.getElementsByClassName("listy");
+            document.getElementById("itemName").value = "";
+            selector++;
+        };
+    };
+
+    addEventListener('click',(event)=>{
+        setTimeout(checkingFor,1);
+    });
+    function checkingFor() {
+        if (document.getElementsByClassName("checker").length > 0) {
+            for (let i = 0; i < selector; i++) {
+                if (document.getElementsByClassName("checker")[i].checked == true) {
+                    document.getElementsByClassName("checker")[i].remove();
+                    document.getElementsByClassName("label")[i].remove();
+                    document.getElementsByClassName("line")[i].remove();
+                };
+            };
+        };
+    };
+</script>
+</html>
